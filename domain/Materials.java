@@ -1,42 +1,48 @@
 
 package domain;
 
+import java.io.Serializable;
 
-public abstract class Materials {
+public abstract class Materials implements Serializable {
     
     protected String materialCode;
-    protected boolean available; //indica si esta disponible o no
+    protected int quantity;
     
-    // constructor
+    // constructor 
     public Materials() {
-        available = true;
+        materialCode = "";
+        quantity = 1;
     }
-    
-    //método para verificar el codigo del material
-    public abstract boolean setCode(String materialCode);
 
     //Metodos de acceso
-    public boolean isAvailable() {
-        return available;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    //Metodo para definir la cantidad de un mismo producto que se va a ingresar
+    //Se valida que dicha cantidad sean mayor que 0
+    public void setQuantity(int quantity) {
+        if(quantity > 0) {
+            this.quantity = quantity;
+        }
     }
     
     public String getMaterialCode() {
         return materialCode;
     }
+    
+    //método para verificar el codigo del material
+    public abstract boolean setMaterialCode(String materialCode);
 
     @Override
     public String toString() {
         return  "Code:\t\t" + materialCode
-                + "\nAvailable:\t" + available;
+                + "\nQuantity:\t" + quantity;
     }
     
     //Metodo que retorna el tamano de los atributos en bytes
     public int sizeInBytes(){
-        return 1 + materialCode.length() * 2;
+        return 4 + materialCode.length() * 2;
     }
     
 }//fin clase Materials

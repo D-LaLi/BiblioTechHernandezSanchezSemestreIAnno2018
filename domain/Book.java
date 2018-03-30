@@ -2,18 +2,26 @@
 package domain;
 
 
-public class Books extends Materials {
+public class Book extends Materials {
     
     private String title;
     private String author;
-    private String theme;
+    private String category;
     private String type;
     private String editorial;
 
-    public Books(String title, String author, String theme, String type, String editorial) {
+    public Book() {
+        title = "";
+        author = "";
+        category = "";
+        type = "";
+        editorial = "";
+    }
+
+    public Book(String title, String author, String theme, String type, String editorial) {
         this.title = title;
         this.author = author;
-        this.theme = theme;
+        this.category = theme;
         this.type = type;
         this.editorial = editorial;
     }
@@ -31,12 +39,12 @@ public class Books extends Materials {
         return title;
     }
 
-    public String getTheme() {
-        return theme;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public void setCategory(String category) {
+        this.category = category;
     }
      
     public void setTitle(String title) {
@@ -59,20 +67,28 @@ public class Books extends Materials {
         this.type = type;
     }
     
+    //Este mètodo se encarga de verificar que el codigo ISBN sea mayor de 9 digitos
+    //y menor que 14 y que solo se puedan ingresar numeros.
     @Override
-    public boolean setCode(String materialCode) {
+    public boolean setMaterialCode(String materialCode) {
         if(materialCode.length() > 9 && materialCode.length() < 14){
-            this.materialCode = materialCode;
-            return true;
+            try{
+                Long.parseLong(materialCode);
+                this.materialCode = materialCode;
+                return true;
+            }catch(NumberFormatException nfe){
+                System.err.println("Invalid ISBN code");
+                return false;
+            }
         } else 
             return false;
-    }//fin metodo setCode
+    }//fin metodo setMaterialCode
 
     @Override
     public String toString() {
         return "Title:\t\t" + title 
                 + "\nAuthor:\t\t" + author  
-                + "\nTheme\t\t" + theme
+                + "\nTheme\t\t" + category
                 + "\nEditorial:\t" + editorial 
                 + "\nType:\t\t" + type 
                 + "\n"+super.toString();
@@ -83,7 +99,7 @@ public class Books extends Materials {
         return super.sizeInBytes() 
                 + title.length()*2 
                 + author.length()*2 
-                + theme.length()*2
+                + category.length()*2
                 + editorial.length()*2 
                 + type.length()*2;
     }//fin sizeInBytes 

@@ -8,6 +8,12 @@ public class Audiovisual extends Materials {
     private String type; 
     private String model;
 
+    public Audiovisual() {
+        brand = "";
+        type = "";
+        model = "";
+    }
+    
     public Audiovisual(String brand, String type, String model) {
         this.brand = brand;
         this.type = type;
@@ -38,17 +44,23 @@ public class Audiovisual extends Materials {
     public void setModel(String model) {
         this.model = model;
     }
-
-    //Este metodo verifica que el codigo de los materiales audiovisuales sea
-    //menor a 5 digitos.
+   
+    //Este método verifica que el código de los materiales audiovisuales sea
+    //menor a 5 dígitos y que solo se puedan ingresar números.
     @Override
-    public boolean setCode(String materialCode) {
-        if(materialCode.length() < 6) {
-            this.materialCode = materialCode;
-            return false;
+    public boolean setMaterialCode(String materialCode) {
+        if(materialCode.length() < 6 && materialCode.length() > 4) {
+            try{
+                Integer.parseInt(materialCode);
+                this.materialCode = materialCode;
+                return true;
+            }catch(NumberFormatException nfe){
+                System.err.println("Invalid Audiovisual Code");
+                return false;
+            }
         }else
-            return true;
-    }//fin metodo setCode 
+            return false;
+    }//fin metodo setMaterialCode 
 
     @Override
     public String toString() {
@@ -64,7 +76,5 @@ public class Audiovisual extends Materials {
                 + brand.length()*2 
                 + type.length()*2 
                 + model.length()*2; 
-    }
-    
-    
+    }   
 }//fin clase Audiovisual
