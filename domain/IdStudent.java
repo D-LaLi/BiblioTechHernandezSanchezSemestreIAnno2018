@@ -1,17 +1,23 @@
 
 package domain;
 
+import files.StudentFile;
+import java.io.IOException;
+import java.io.Serializable;
 
-public class IdStudent {
+
+public class IdStudent implements Serializable{
     
     private int initials;
     private int year;
-    private static short secuenceNum;
+    private int secuenceNum;
+    private String carnet;
    
     //constructores
     public IdStudent(int initials, int year) {
         this.initials = initials;
-        this.year = year;        
+        this.year = year; 
+        setCarnet();
     }
 
     public IdStudent() {
@@ -36,10 +42,16 @@ public class IdStudent {
         this.year = year;
     }
     
-    //Metodo que calcula el numero consecutivo y retorna el carne final del estudiante;
-    public String carne() {
+    //Metodo que calcula el numero consecutivo y retorna el setCarnet final del estudiante;
+    public void setCarnet() {
+        
+        StudentFile sf = new StudentFile("./student.dat");
+        
+        //se le indica el numero de estudiantes que hay en el registro
+        secuenceNum = sf.getLastRegistry();
+        
         secuenceNum++; //hacer numero de tres crifras
-        String result = "";
+        carnet = "";
         String secuence = "" + secuenceNum;
 
         while(secuence.length() < 3){
@@ -47,28 +59,26 @@ public class IdStudent {
         }
      
         year = year % 10;
-        result = "" + year + secuence;
+        carnet = "" + year + secuence;
         
      // 1 = Informatica
      // 2 = Agronomia
      // 3 = Educacion 
         if(initials == 1)
-            result = "I" + result;
-        else if(initials==2)
-            result = "A" +result;
+            carnet = "I" + carnet;
+        else if(initials == 2)
+            carnet = "A" +carnet;
         else
-            result = "E" + result;
+            carnet = "E" + carnet;
     
-        return result;
-    }//fin metodo carne
+    }//fin metodo setCarnet
+    
+    public String getCarne() {
+        return carnet;
+    }
     
     public int sizeInBytes(){
         return 6;
-    }
-
-    @Override
-    public String toString() {
-        return carne();
     }
     
 }//fin clase IdStudent

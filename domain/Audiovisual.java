@@ -2,22 +2,24 @@
 package domain;
 
 
-public class Audiovisual extends Materials {
+public class Audiovisual extends Material {
     
     private String brand;
-    private String type; 
     private String model;
+    private String color;
 
     public Audiovisual() {
-        brand = "";
-        type = "";
-        model = "";
+        this.brand = "";
+        this.name = "";
+        this.model = "";
+        this.color = "";
     }
     
-    public Audiovisual(String brand, String type, String model) {
+    public Audiovisual(String brand, String type, String model, String color) {
         this.brand = brand;
-        this.type = type;
+        this.name = type;
         this.model = model;
+        this.color = color;
     }
     
     //Metodos de acceso
@@ -30,11 +32,11 @@ public class Audiovisual extends Materials {
     }
 
     public String getType() {
-        return type;
+        return name;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.name = type;
     }
 
     public String getModel() {
@@ -44,7 +46,15 @@ public class Audiovisual extends Materials {
     public void setModel(String model) {
         this.model = model;
     }
-   
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     //Este método verifica que el código de los materiales audiovisuales sea
     //menor a 5 dígitos y que solo se puedan ingresar números.
     @Override
@@ -65,7 +75,7 @@ public class Audiovisual extends Materials {
     @Override
     public String toString() {
         return "Brand:\t\t" + brand 
-                +"\nType:\t\t" + type 
+                +"\nType:\t\t" + name 
                 +"\nModel:\t\t" + model 
                 +"\n" + super.toString();
     }//fin toString
@@ -74,7 +84,8 @@ public class Audiovisual extends Materials {
     public int sizeInBytes() {
         return super.sizeInBytes() 
                 + brand.length()*2 
-                + type.length()*2 
-                + model.length()*2; 
+                + name.length()*2 
+                + model.length()*2
+                + color.length()*2; 
     }   
 }//fin clase Audiovisual

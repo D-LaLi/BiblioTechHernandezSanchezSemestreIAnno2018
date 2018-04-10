@@ -7,7 +7,7 @@ package files;
 
 import domain.Audiovisual;
 import domain.Book;
-import domain.Materials;
+import domain.Material;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ public class AudiovisualFile extends MaterialFile {
     }
 
     @Override
-    public boolean putValue(int position, Materials materialToInsert) throws IOException {
+    public boolean putValue(int position, Material materialToInsert) throws IOException {
         if(position >= 0 && position <= regsQuantity){
             if(materialToInsert.sizeInBytes() > regSize){
                 System.err.println("error - 401 invalid size at AudiovisualFile");
@@ -32,6 +32,7 @@ public class AudiovisualFile extends MaterialFile {
                 randomAccessFile.writeUTF(((Audiovisual)materialToInsert).getBrand());
                 randomAccessFile.writeUTF(((Audiovisual)materialToInsert).getType());
                 randomAccessFile.writeUTF(((Audiovisual)materialToInsert).getModel());
+                randomAccessFile.writeUTF(((Audiovisual)materialToInsert).getColor());
                 randomAccessFile.writeUTF(((Audiovisual)materialToInsert).getMaterialCode());
                 randomAccessFile.writeInt(((Audiovisual)materialToInsert).getQuantity()); 
                 return true;
@@ -43,13 +44,14 @@ public class AudiovisualFile extends MaterialFile {
     }//fin metodo putValue
 
     @Override
-    public Materials getMaterial(int position) throws IOException {
+    public Material getMaterial(int position) throws IOException {
         if(position >= 0 && position <= regsQuantity){
             randomAccessFile.seek(position * regSize);
             Audiovisual audiovisual = new Audiovisual();
             audiovisual.setBrand(randomAccessFile.readUTF());
             audiovisual.setType(randomAccessFile.readUTF());
             audiovisual.setModel(randomAccessFile.readUTF());
+            audiovisual.setColor(randomAccessFile.readUTF());
             audiovisual.setMaterialCode(randomAccessFile.readUTF());
             audiovisual.setQuantity(randomAccessFile.readInt());
             

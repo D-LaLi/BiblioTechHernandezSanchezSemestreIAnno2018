@@ -3,41 +3,47 @@ package domain;
 
 import java.io.Serializable;
 
-public abstract class Materials implements Serializable {
+public abstract class Material implements Serializable {
     
     protected String materialCode;
     protected int quantity;
+    protected String name;
     
     // constructor 
-    public Materials() {
+    public Material() {
+        name = "";
         materialCode = "";
         quantity = 1;
     }
 
     //Metodos de acceso
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public int getQuantity() {
         return quantity;
     }
 
-    //Metodo para definir la cantidad de un mismo producto que se va a ingresar
-    //Se valida que dicha cantidad sean mayor que 0
     public void setQuantity(int quantity) {
-        if(quantity > 0) {
-            this.quantity = quantity;
-        }
+        this.quantity = quantity;
     }
     
     public String getMaterialCode() {
         return materialCode;
     }
     
-    //método para verificar el codigo del material
+    //Método abstractos
     public abstract boolean setMaterialCode(String materialCode);
 
-    @Override
+    @Override //se reescribe toString
     public String toString() {
         return  "Code:\t\t" + materialCode
-                + "\nQuantity:\t" + quantity;
+                + "\nQuantity:\t\t" + quantity;
     }
     
     //Metodo que retorna el tamano de los atributos en bytes
@@ -45,4 +51,4 @@ public abstract class Materials implements Serializable {
         return 4 + materialCode.length() * 2;
     }
     
-}//fin clase Materials
+}//fin clase Material

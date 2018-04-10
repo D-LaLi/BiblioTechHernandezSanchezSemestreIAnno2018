@@ -1,6 +1,9 @@
 package domain;
 
-public class Student {
+import java.io.IOException;
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     private String name;
     private String lastName;
@@ -41,7 +44,6 @@ public class Student {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
 
     public int getEntryYear() {
         return entryYear;
@@ -59,12 +61,12 @@ public class Student {
         this.careerNum = careerNum;
     }
 
-    public IdStudent getIdStudent() {
-        return idStudent;
+    public String getIdStudent() {
+        return idStudent.getCarne();
     }
 
     public void setIdStudent(int careerNum, int entryYear) {
-        this.idStudent = new IdStudent(careerNum, entryYear);
+        this.idStudent.setCarnet();
     }
 
     public int sizeInBytes() {
@@ -76,7 +78,7 @@ public class Student {
     public String toString() {
         return "Name:\t\t" + name 
                 + "\nLastName:\t" + lastName 
-                + "\nIdStudent:\t" + idStudent.toString()
+                + "\nIdStudent:\t" + idStudent.getCarne()
                 + "\nEntryYear:\t" + entryYear 
                 + "\nCareerNum:\t" + careerNum;
     } 

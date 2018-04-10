@@ -2,26 +2,23 @@
 package domain;
 
 
-public class Book extends Materials {
+public class Book extends Material {
     
-    private String title;
     private String author;
     private String category;
     private String type;
     private String editorial;
 
     public Book() {
-        title = "";
         author = "";
         category = "";
         type = "";
         editorial = "";
     }
 
-    public Book(String title, String author, String theme, String type, String editorial) {
-        this.title = title;
+    public Book(String author, String category, String type, String editorial) {
         this.author = author;
-        this.category = theme;
+        this.category = category;
         this.type = type;
         this.editorial = editorial;
     }
@@ -36,7 +33,7 @@ public class Book extends Materials {
     }
 
     public String getTitle() {
-        return title;
+        return name;
     }
 
     public String getCategory() {
@@ -48,7 +45,7 @@ public class Book extends Materials {
     }
      
     public void setTitle(String title) {
-        this.title = title;
+        name = title;
     }
 
     public String getAuthor() {
@@ -86,10 +83,10 @@ public class Book extends Materials {
 
     @Override
     public String toString() {
-        return "Title:\t\t" + title 
+        return "Title:\t\t\t" + name 
                 + "\nAuthor:\t\t" + author  
                 + "\nTheme\t\t" + category
-                + "\nEditorial:\t" + editorial 
+                + "\nEditorial:\t\t" + editorial 
                 + "\nType:\t\t" + type 
                 + "\n"+super.toString();
     }//fin toString
@@ -97,7 +94,7 @@ public class Book extends Materials {
     @Override
     public int sizeInBytes() {
         return super.sizeInBytes() 
-                + title.length()*2 
+                + name.length()*2 
                 + author.length()*2 
                 + category.length()*2
                 + editorial.length()*2 

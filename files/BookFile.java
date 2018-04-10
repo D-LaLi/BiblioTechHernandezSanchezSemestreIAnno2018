@@ -2,9 +2,12 @@
 package files;
 
 import domain.Book;
-import domain.Materials;
+import domain.Material;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BookFile extends MaterialFile {
 
@@ -13,9 +16,9 @@ public class BookFile extends MaterialFile {
     }
 
     @Override
-    public boolean putValue(int position, Materials materialToInsert) throws IOException {
+    public boolean putValue(int position, Material materialToInsert) throws IOException {
         
-        //Se hace un casting de la superclase(Materials) a la subclase(Book)
+        //Se hace un casting de la superclase(Material) a la subclase(Book)
         Book book1 = (Book)materialToInsert;
         
         //Se verifica que la posicion sea correcta
@@ -42,7 +45,7 @@ public class BookFile extends MaterialFile {
     }//fin metodo putValue
 
     @Override
-    public Materials getMaterial(int position) throws IOException {
+    public Material getMaterial(int position) throws IOException {
         if(position >= 0 && position <= regsQuantity){
             Book book1 = new Book();
             randomAccessFile.seek(position * regSize);
@@ -58,5 +61,5 @@ public class BookFile extends MaterialFile {
             System.err.println("error - 402 invalid position");
             return null;
         }
-    }//fin metodo getMaterial     
+    }//fin metodo getMaterial    
 }//fin clase BookFile
